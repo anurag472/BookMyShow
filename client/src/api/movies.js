@@ -8,3 +8,12 @@ export const getAllMovies = async () => {
     return error.response;
   }
 };
+
+export const addMovie = async (movie) => {
+  try {
+    const response = await axiosInstance.post("/api/movies/add-movie", movie);
+    return response.data;
+  } catch (error) {
+    return error.response;
+  }
+}
