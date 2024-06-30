@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
 import Admin from "./pages/Admin";
 import Profile from "./pages/Profile";
+import SingleMovie from "./pages/SingleMovie";
 
 function App() {
   return (
@@ -21,6 +22,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/movie/:id"
+            element={
+              <ProtectedRoute>
+                <SingleMovie />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/admin"
             element={

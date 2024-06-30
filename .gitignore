@@ -10,6 +10,7 @@ client/build/
 server/build/
 
 # Ignore environment files
+server/.env
 .env
 .env.local
 .env.development.local

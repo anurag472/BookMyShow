@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
             return
         }
 
-        const token = jwt.sign({userId: user._id}, "scaler_BMS", {expiresIn: "1h"})
+        const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY, {expiresIn: "1h"})
 
         res.send({
             success: true,
