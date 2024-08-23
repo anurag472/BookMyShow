@@ -23,6 +23,6 @@ mongoose.connect(process.env.DB_URL).then(() => {
     console.log('Error connecting to database', err);
 })
 
-app.listen(8081, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server is running');
 })
