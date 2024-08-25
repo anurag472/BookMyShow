@@ -5,10 +5,12 @@ import { message, Card, Row, Col, Button } from "antd";
 import moment from "moment";
 import { bookShow, makePayment } from "../../api/bookings";
 import StripeCheckout from 'react-stripe-checkout';
+import { useSelector } from "react-redux";
 
 const BookShow = () => {
   const [show, setShow] = useState();
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const user = useSelector((state) => state.user.user);
   const params = useParams();
   const navigate = useNavigate();
   const getData = async () => {
@@ -17,7 +19,6 @@ const BookShow = () => {
       if (response.success) {
         setShow(response.data);
         // message.success(response.message);
-        console.log(response.data);
       } else {
         message.error(response.message);
       }
@@ -39,7 +40,7 @@ const BookShow = () => {
           </p>
           <div className="screen-div"></div>
         </div>
-        <ul className="seat-ul justify-content-center">
+        <ul className="w-100 max-width-600 seat-ul justify-content-center mx-auto">
           {Array.from(Array(rows).keys()).map((row) => {
             return Array.from(Array(columns).keys()).map((column) => {
               let seatNumber = row * columns + column + 1;
@@ -77,7 +78,7 @@ const BookShow = () => {
 
               if (seatNumber <= totalSeats)
                 return (
-                  <li>
+                  <li key={seatNumber}>
                     <button
                       className={seatClass}
                       onClick={() => {
@@ -119,7 +120,7 @@ const BookShow = () => {
         show: params.id,
         transactionId,
         seats: selectedSeats,
-        user: "666ade3cd5dbc8757d6094df",
+        user: user._id
       });
       if (response.success) {
         message.success("Show Booking done!");
@@ -159,20 +160,19 @@ const BookShow = () => {
   }, []);
 
   return (
-    <>
+    <div className="home2">
       {show && (
         <Row gutter={24}>
           <Col span={24}>
             <Card
               title={
+                <div className="title-card">
                 <div className="movie-title-details">
                   <h1>{show.movie.title}</h1>
                   <p>
                     Theatre: {show.theatre.name}, {show.theatre.address}
                   </p>
                 </div>
-              }
-              extra={
                 <div className="show-name py-3">
                   <h3>
                     <span>Show Name:</span> {show.name}
@@ -190,6 +190,7 @@ const BookShow = () => {
                     <span> &nbsp;|&nbsp; Available Seats:</span>{" "}
                     {show.totalSeats - show.bookedSeats.length}{" "}
                   </h3>
+                </div>
                 </div>
               }
               style={{ width: "100%" }}
@@ -214,7 +215,7 @@ const BookShow = () => {
           </Col>
         </Row>
       )}
-    </>
+    </div>
   );
 };
 export default BookShow;

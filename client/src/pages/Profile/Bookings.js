@@ -4,18 +4,19 @@ import { Button, Card, Col, Row, message } from "antd";
 import { useEffect, useState } from "react";
 import { hideLoading, showLoading } from "../../redux/loaderSlice";
 import { getAllBookings } from "../../api/bookings";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { Link } from "react-router-dom";
 
 const Bookings = () => {
     const [bookings, setBookings] = useState([]);
     const dispatch = useDispatch(); 
+    const user = useSelector(state => state.user.user);
 
-    const getData = async () => {
+    const getData = async (user) => {
         try{
             dispatch(showLoading());
-            const response = await getAllBookings();
+            const response = await getAllBookings({userId: user._id});
             if(response.success){
                 setBookings(response.data);
                  console.log(response.data);
@@ -31,8 +32,8 @@ const Bookings = () => {
     }
 
     useEffect(() => {
-        getData();
-    }, []);
+        getData(user);
+    }, [user]);
 
 
     return(

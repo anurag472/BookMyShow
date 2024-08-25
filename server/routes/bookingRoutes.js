@@ -4,9 +4,9 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const Booking = require('../models/bookingModel');
 const Show = require('../models/showModel');
 
-router.post('/make-payment',  async (req, res) => {
-    try{
-        const {token, amount} = req.body;
+router.post('/make-payment', async (req, res) => {
+    try {
+        const { token, amount } = req.body;
         const customer = await stripe.customers.create({
             email: token.email,
             source: token.id
@@ -28,7 +28,7 @@ router.post('/make-payment',  async (req, res) => {
         //     receipt_email: token.email,
         //     description: "Token has been assigned to the movie!"
         // });
-        
+
         const transactionId = paymentIntent.id;
 
         res.send({
@@ -36,7 +36,7 @@ router.post('/make-payment',  async (req, res) => {
             message: "Payment Successful! Ticket(s) booked!",
             data: transactionId
         });
-    }catch(err){
+    } catch (err) {
         res.send({
             success: false,
             message: err.message
@@ -45,8 +45,8 @@ router.post('/make-payment',  async (req, res) => {
 });
 
 // Create a booking after the payment
-router.post('/book-show',  async (req, res) => {
-    try{
+router.post('/book-show', async (req, res) => {
+    try {
         const newBooking = new Booking(req.body);
         await newBooking.save();
         const show = await Show.findById(req.body.show).populate("movie");
@@ -57,7 +57,7 @@ router.post('/book-show',  async (req, res) => {
             message: 'New Booking done!',
             data: newBooking
         });
-    }catch(err){
+    } catch (err) {
         res.send({
             success: false,
             message: err.message
@@ -65,33 +65,28 @@ router.post('/book-show',  async (req, res) => {
     }
 });
 
-router.get("/get-all-bookings",authMiddleware, async (req, res) => {
-    try{
+router.post("/get-all-bookings", authMiddleware, async (req, res) => {
+    try {
         const bookings = await Booking.find({ user: req.body.userId })
-        .populate("user")
-        .populate("show")
+            .populate("user")
             .populate({
                 path: "show",
-                populate: {
-                    path: "movie",
-                    model: "movies"
-                }
-            })
-            .populate({
-                path: "show",
-                populate: {
-                    path: "theatre",
-                    model: "theatres"
-                }
+                populate: [
+                    {
+                        path: "movie"
+                    },
+                    {
+                        path: "theatre"
+                    }
+                ]
             });
-        
         res.send({
             success: true,
             message: "Bookings fetched!",
             data: bookings
         })
 
-    }catch(err){
+    } catch (err) {
         res.send({
             success: false,
             message: err.message

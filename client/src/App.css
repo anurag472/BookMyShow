@@ -10,6 +10,37 @@
   align-items: center;
   justify-content: center;
  }
+  .home2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  .title-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .single-movie-div{
+    flex-direction: column;
+  }
+  .single-movie-img{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .single-movie-img img{
+    width: 250px;
+    border-radius: 5px;
+    margin: 20px 0;
+  }
+  .theatre-wrapper {
+    margin: 20px;
+  }
+  .profile {
+    margin: 20px;
+  }
  .flex-1{
   flex: 1;
  }
@@ -179,7 +210,7 @@
  .seat-ul{
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: auto;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
@@ -305,8 +336,20 @@
     flex-direction: column;
   }
   .single-movie-img{
-    margin-right: 0;
     margin-bottom: 1rem;
+  }
+  .seat-ul .seat-btn{
+    width: 22px;
+    height: 15px;
+    font-size: 9px;
+   }
+   .movie-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .title-card {
+    display: flex;
+    flex-direction: column;
   }
  }
  

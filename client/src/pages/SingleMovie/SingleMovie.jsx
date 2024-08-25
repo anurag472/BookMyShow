@@ -57,11 +57,11 @@ function SingleMovie() {
   }, [date]);
 
   return (
-    <div className="inner-container">
+    <div className="inner-container home2">
         {movie && (
           <div className="d-flex single-movie-div">
-            <div className="flex-Shrink-0 me-3 single-movie-img">
-              <img src={movie.poster} width={150} alt="Movie Poster" />
+            <div className="flex-Shrink-0 single-movie-img">
+              <img src={movie.poster} alt="Movie Poster" />
             </div>
             <div className="w-100">
               <h1 className="mt-0">{movie.title}</h1>

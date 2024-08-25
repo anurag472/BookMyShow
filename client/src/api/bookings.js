@@ -20,9 +20,9 @@ export const bookShow = async (payload) => {
     }
 }
 
-export const getAllBookings = async () => {
+export const getAllBookings = async (payload) => {
     try{
-        const response = await axiosInstance.get('/api/bookings/get-all-bookings');
+        const response = await axiosInstance.post('/api/bookings/get-all-bookings', payload);
         return response.data;
     }catch(err){
         return err.response;

@@ -22,7 +22,7 @@ const TheatreList = () => {
     const getData = async () => {
         try{
           dispatch(showLoading());
-          const response = await getAllTheatres({ owner: '66762d162815c743d84cf2fb' });
+          const response = await getAllTheatres({ owner: user._id });
           if(response.success){
             const allTheatres = response.data;
             // console.log(allTheatres);

@@ -1,4 +1,4 @@
-import { message, Row, Col, Input } from "antd";
+import { message, Row, Col } from "antd";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -27,10 +27,10 @@ function Home() {
 
   
   return (
-    <div>
+    <div className="home2">
       <h1>Movies</h1>
       <Row
-        className="justify-content-center"
+        className="justify-content-center movie-card"
         gutter={{
           xs: 8,
           sm: 16,

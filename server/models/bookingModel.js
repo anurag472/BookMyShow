@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const bookingSchema = new mongoose.Schema({
     show: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "shows"
+        ref: "Show"
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
+        ref: "User"
     },
     seats: {
         type: Array,

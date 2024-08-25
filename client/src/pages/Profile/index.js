@@ -26,10 +26,10 @@ const Profile = () => {
       ];
 
     return (
-        <>
+        <div className='profile'>
         <h1>Profile Page</h1>
             <Tabs defaultActiveKey="2" items={items} />
-        </>
+        </div>
     )
 }
 

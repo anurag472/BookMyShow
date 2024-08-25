@@ -3,9 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../api/users";
 import { message, Menu, Layout } from "antd";
 import { Header } from "antd/es/layout/layout";
+import { useDispatch } from "react-redux";
 import { HomeOutlined, UserOutlined, ProfileOutlined } from "@ant-design/icons";
+import { setUser as setUser2 } from "../redux/userSlice";
 
 function ProtectedRoute({ children }) {
+  const dispatch = useDispatch();
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
@@ -43,7 +46,8 @@ function ProtectedRoute({ children }) {
   const getValidUser = async () => {
     try {
       const response = await getCurrentUser();
-      setUser(response.data);
+      setUser(response?.data);
+      dispatch(setUser2(response?.data));
       message.success(`Welcome ${response.data.name}`);
     } catch (error) {
       message.error(error.message);
@@ -59,7 +63,6 @@ function ProtectedRoute({ children }) {
     }
   }, []);
   return (
-    <>
       <Layout>
         <Header
           className="d-flex justify-content-between"
@@ -77,9 +80,8 @@ function ProtectedRoute({ children }) {
           </h3>
           <Menu theme="dark" mode="horizontal" items={navItems} />
         </Header>
-        <div>{children}</div>
+        <div className="home">{children}</div>
       </Layout>
-    </>
   );
 }
 
